@@ -4,12 +4,17 @@ interface Point {
   y: number;
 };
 
+interface PointFalse {
+  x: false,
+  y: false
+};
+
 interface Offset {
   top: number;
   left: number;
 };
 
-export function findPosition(el: HTMLElement): { top: number, left: number } {
+export function findPosition(el: HTMLElement): Offset {
   let viewportOffset: ClientRect = el.getBoundingClientRect();
   let top: number = viewportOffset.top + window.scrollY;
   let left: number = viewportOffset.left + window.scrollX;
@@ -33,7 +38,7 @@ export function locateMouse(e: MouseEvent, offset: Offset): Point {
   };
 }
 
-export function locateTouch(e: TouchEvent, offset: Offset): Point | { x: false, y: false } {
+export function locateTouch(e: TouchEvent, offset: Offset): Point | PointFalse {
   if (!e.targetTouches.length) {
     return { x: false, y: false }
   }
